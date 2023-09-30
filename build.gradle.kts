@@ -1,11 +1,23 @@
 plugins {
 	kotlin("jvm") version "1.9.0"
 	id("io.gitlab.arturbosch.detekt") version Versions.detektGradlePlugin
-	application
+	id("java")
+	id("com.github.johnrengelman.shadow") version Versions.shadow
+	id("java-library")
+	`maven-publish`
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+publishing {
+	publications {
+		create<MavenPublication>("mavenKotlin") {
+			from(components["java"])
+			pom {
+				name.set("automation_testing_helper")
+				description.set("automation_testing_helper")
+			}
+		}
+	}
+}
 
 repositories {
 	mavenCentral()
@@ -24,10 +36,6 @@ tasks.test {
 
 kotlin {
 	jvmToolchain(8)
-}
-
-application {
-	mainClass.set("MainKt")
 }
 
 allprojects {

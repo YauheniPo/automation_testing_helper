@@ -33,9 +33,13 @@ application {
 allprojects {
 	
 	detekt {
-		source = objects.fileCollection().from(io.gitlab.arturbosch.detekt.extensions.DetektExtension.DEFAULT_SRC_DIR_JAVA, io.gitlab.arturbosch.detekt.extensions.DetektExtension.DEFAULT_TEST_SRC_DIR_JAVA, io.gitlab.arturbosch.detekt.extensions.DetektExtension.DEFAULT_SRC_DIR_KOTLIN, io.gitlab.arturbosch.detekt.extensions.DetektExtension.DEFAULT_TEST_SRC_DIR_KOTLIN)
-		buildUponDefaultConfig = true
-		baseline = file("${rootProject.rootDir}/gradle/detekt/baseline.xml")
 		config = files("${rootProject.rootDir}/gradle/detekt/detekt.yml")
+		parallel = true
+		buildUponDefaultConfig = true
+		reports {
+			html.enabled = true
+			xml.enabled = true
+			txt.enabled = true
+		}
 	}
 }
